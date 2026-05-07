@@ -1,5 +1,6 @@
-package gabebuzato.com.github.CadastroAPI;
+package gabebuzato.com.github.CadastroAPI.Users.Controller.Service;
 
+import gabebuzato.com.github.CadastroAPI.Tasks.TasksModel;
 import jakarta.persistence.*;
 
 // Entity transforma uma classe numa entidade do DB
@@ -11,10 +12,15 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     private String nome;
     private String email;
     private int idade;
+
+    //@ManyToOne um usuário vai ter apenas uma task
+    @ManyToOne
+    @JoinColumn(name = "tasks_id") // Foreign Key
+    private TasksModel tasks;
 
     public UserModel() {
     }

@@ -1,4 +1,4 @@
-package gabebuzato.com.github.CadastroAPI;
+package gabebuzato.com.github.CadastroAPI.Users.Controller.Service;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
