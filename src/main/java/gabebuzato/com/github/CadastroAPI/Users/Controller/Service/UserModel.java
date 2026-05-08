@@ -9,7 +9,7 @@ import lombok.*;
 
 @Table( name = "tb_cadastro" )
 @NoArgsConstructor // cria os construtores no args
-@AllArgsConstructor // Cria os contrutores all args
+@AllArgsConstructor // Cria os construtores all args
 @Data //Cria automaticamente os getters e setters
 @Entity
 public class UserModel {
