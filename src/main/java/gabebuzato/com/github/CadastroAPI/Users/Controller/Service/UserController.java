@@ -3,7 +3,7 @@ package gabebuzato.com.github.CadastroAPI.Users.Controller.Service;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/usuarios")
 public class UserController {
 
     @GetMapping("/boasvindas")
@@ -19,13 +19,13 @@ public class UserController {
 
 
     // Procurar Usuario por ID (READ)
-    @GetMapping("/todosId")
+    @GetMapping("/listarID")
     public String mostrarTodosOsUsuariosPorId() {
         return "Mostrar Usuário por Id";
     }
 
     // Mostrar os Usuários (READ)
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public String mostrarTodosOsUsuarios() {
         return "Mostrar Usuarios";
     }
