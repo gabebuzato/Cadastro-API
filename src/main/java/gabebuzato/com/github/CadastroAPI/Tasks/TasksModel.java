@@ -1,5 +1,6 @@
 package gabebuzato.com.github.CadastroAPI.Tasks;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gabebuzato.com.github.CadastroAPI.Users.Controller.Service.UserModel;
 import jakarta.persistence.*;
 
@@ -17,5 +18,6 @@ public class TasksModel {
 
     //Uma task pode ter vários usuários
     @OneToMany(mappedBy = "tasks")
+    @JsonIgnore
     private List<UserModel> user;
 }
