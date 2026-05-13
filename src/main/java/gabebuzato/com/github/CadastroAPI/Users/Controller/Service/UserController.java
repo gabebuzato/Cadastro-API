@@ -2,9 +2,17 @@ package gabebuzato.com.github.CadastroAPI.Users.Controller.Service;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/usuarios")
 public class UserController {
+
+    private UserService userService;
+
+    public void UserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/boasvindas")
     public String boasVindas() {
@@ -26,8 +34,8 @@ public class UserController {
 
     // Mostrar os Usuários (READ)
     @GetMapping("/listar")
-    public String mostrarTodosOsUsuarios() {
-        return "Mostrar Usuarios";
+    public List<UserModel> listarUsuarios() {
+        return userService.listarUsuarios();
     }
 
     // Alterar dados do Usuário (UPDATE)
