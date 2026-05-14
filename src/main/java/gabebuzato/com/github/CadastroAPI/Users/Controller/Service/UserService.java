@@ -21,4 +21,8 @@ public class UserService {
         Optional<UserModel> user = userRepository.findById(id);
         return user.orElse(null); // Ou retorna o user ou retorna null
     }
+
+    public UserModel cadastroUsuario(UserModel user) {
+        return userRepository.save(user);
+    }
 }

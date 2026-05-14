@@ -25,7 +25,7 @@ public class UserModel {
     private String email;
 
     @Column (name = "idade")
-    private int idade;
+    private Integer idade;
 
     //@ManyToOne um usuário vai ter apenas uma task
     @ManyToOne

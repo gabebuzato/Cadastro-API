@@ -2,9 +2,17 @@ package gabebuzato.com.github.CadastroAPI.Tasks;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController // O rest controller basicamente é uma annotation que fala que tudo isso aqui são rotas para a minha API
-@RequestMapping("missoes") // Fala que vai mapear a sua API
+@RequestMapping("/missoes") // Fala que vai mapear a sua API
 public class TasksController {
+
+    private TasksService taskService;
+
+    public void  TasksService(TasksService taskService) {
+        this.taskService = taskService;
+    }
 
     // Adicionar Uma tarefa
     @PostMapping("/criar")
@@ -14,8 +22,8 @@ public class TasksController {
 
     // Mostrar Uma tarefa
     @GetMapping ("/listar")
-    public String listarTarefas(){
-        return "Tarefas";
+    public List<TasksModel> listarTarefas(){
+        return taskService.listarTarefas();
     }
 
     // Atualizar uma tarefa

@@ -10,7 +10,7 @@ public class UserController {
 
     private UserService userService;
 
-    public void UserService(UserService userService) {
+   public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -21,8 +21,8 @@ public class UserController {
 
     // Adicionar Usuário (CREATE)
     @PostMapping("/criar")
-    public String criarUsuario() {
-        return "Usuário criado com sucesso";
+    public UserModel criarUsuario(@RequestBody  UserModel user)  { // annotation para quando o usuário precisa enviar algo no corpo da minha requisição
+        return userService.cadastroUsuario(user);
     }
 
 
