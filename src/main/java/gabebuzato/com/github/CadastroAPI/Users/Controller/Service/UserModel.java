@@ -24,6 +24,9 @@ public class UserModel {
     @Column (name = "email", unique = true)
     private String email;
 
+    @Column (name = "rank")
+    private String rank;
+
     @Column (name = "idade")
     private Integer idade;
 
