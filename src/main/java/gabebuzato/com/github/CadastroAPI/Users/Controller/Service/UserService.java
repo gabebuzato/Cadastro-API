@@ -1,7 +1,10 @@
 package gabebuzato.com.github.CadastroAPI.Users.Controller.Service;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -15,13 +18,16 @@ public class UserService {
     }
 
     // Listar todos os meus usuários
-    public List<UserModel> listarUsuarios() {
-        return userRepository.findAll();
+    public List<UserDTO> listarUsuarios() {
+        List<UserModel> users = userRepository.findAll();
+        return users.stream()
+                .map(userMapper::map)
+                .collect(Collectors.toList());
     }
 
-    public UserModel listarUsuarioPorId(Long id) {
+    public UserDTO listarUsuarioPorId(Long id) {
         Optional<UserModel> user = userRepository.findById(id);
-        return user.orElse(null); // Ou retorna o user ou retorna null
+        return user.map(userMapper::map).orElse(null); // Ou retorna o user ou retorna null
     }
 
     public UserDTO cadastroUsuario(UserDTO userDTO) {
@@ -35,14 +41,14 @@ public class UserService {
     }
 
     //Atualizar Usuário
-    public UserModel atualizarUsuarioPorId(Long id, UserModel user) {
-        Optional<UserModel> userModel = userRepository.findById(id);
-        if(userRepository.existsById(id)){
-            user.setId(id);
-            userRepository.save(user);
-        } else {
-            return null;
+    public UserDTO atualizarUsuarioPorId(Long id, UserDTO user) {
+        Optional<UserModel> usuarioExistente = userRepository.findById(id);
+        if (usuarioExistente.isPresent()) {
+        UserModel usuarioAtualizado = userMapper.map(user);
+        usuarioAtualizado.setId(id);
+        UserModel usuarioSalvo = userRepository.save(usuarioAtualizado);
+        return userMapper.map(usuarioSalvo);
         }
-        return userModel.get();
+        return null;
     }
 }

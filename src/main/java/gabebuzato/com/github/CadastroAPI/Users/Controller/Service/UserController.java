@@ -28,19 +28,19 @@ public class UserController {
 
     // Procurar Usuario por ID (READ)
     @GetMapping("/listar/{id}")
-    public UserModel listarPorID (@PathVariable Long id) { // O path varible é uma variavel quem vem pela requisição http, colocamos ela quando precisamos desse parametro na nossa função para retornar algo
+    public UserDTO listarPorID (@PathVariable Long id) { // O path varible é uma variavel quem vem pela requisição http, colocamos ela quando precisamos desse parametro na nossa função para retornar algo
         return userService.listarUsuarioPorId(id);
     }
 
     // Mostrar os Usuários (READ)
     @GetMapping("/listar")
-    public List<UserModel> listarUsuarios() {
+    public List<UserDTO> listarUsuarios() {
         return userService.listarUsuarios();
     }
 
     // Alterar dados do Usuário (UPDATE)
     @PutMapping ("/alterar/{id}")
-    public UserModel alterarUsuarioPorID(@PathVariable Long id, @RequestBody  UserModel user) {
+    public UserDTO alterarUsuarioPorID(@PathVariable Long id, @RequestBody  UserDTO user) {
        return userService.atualizarUsuarioPorId(id, user);
     }
 
