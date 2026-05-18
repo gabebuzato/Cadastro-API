@@ -39,9 +39,9 @@ public class UserController {
     }
 
     // Alterar dados do Usuário (UPDATE)
-    @PutMapping("/alterarID")
-    public String alterarUsuarioPorID() {
-        return "Informações alteradas com sucesso";
+    @PutMapping ("/alterar/{id}")
+    public UserModel alterarUsuarioPorID(@PathVariable Long id, @RequestBody  UserModel user) {
+       return userService.atualizarUsuarioPorId(id, user);
     }
 
     // Deletar Usuário (DELETE)
