@@ -16,4 +16,18 @@ public class TasksService {
     public List<TasksModel> listarTarefas(){
         return tasksRepository.findAll();
     }
+
+    public TasksModel listarTarefasPorId(Long id){
+        Optional<TasksModel> task = tasksRepository.findById(id);
+        return task.orElse(null);
+    }
+
+    public TasksModel criarTarefa(TasksModel task){
+        return tasksRepository.save(task);
+    }
+
+    public void deltarTarefa(Long id){
+        tasksRepository.deleteById(id);
+    }
+
 }

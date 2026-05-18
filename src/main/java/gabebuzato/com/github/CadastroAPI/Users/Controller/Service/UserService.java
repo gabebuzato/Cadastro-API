@@ -25,4 +25,8 @@ public class UserService {
     public UserModel cadastroUsuario(UserModel user) {
         return userRepository.save(user);
     }
+
+    public void deletarUsuarioPorId(Long id) {
+    userRepository.deleteById(id);
+    }
 }

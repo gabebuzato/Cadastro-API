@@ -16,8 +16,8 @@ public class TasksController {
 
     // Adicionar Uma tarefa
     @PostMapping("/criar")
-    public String criarTarefa(){
-        return "Tarefa Criada com sucesso";
+    public TasksModel criarTarefa(TasksModel task){
+        return taskService.criarTarefa(task);
     }
 
     // Mostrar Uma tarefa
@@ -26,15 +26,20 @@ public class TasksController {
         return taskService.listarTarefas();
     }
 
+    @GetMapping ("/listar/{id}")
+    public TasksModel listarTarefaPorId(@PathVariable Long id){
+        return taskService.listarTarefasPorId(id);
+    }
+
     // Atualizar uma tarefa
     @PutMapping("/alterar")
     public String alterarTarefa(){
-        return "Tarefa Atualizada com sucesso";
+        return "";
     }
 
     // Deletar uma tarefa
-    @DeleteMapping("deletar")
-    public String deletarTarefa(){
-        return "Tarefa Deletada com sucesso";
+    @DeleteMapping("/deletar/{id}")
+    public void deletarTarefa(@PathVariable Long id){
+        taskService.deltarTarefa(id);
     }
 }
