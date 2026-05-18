@@ -7,9 +7,11 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
+    private UserMapper userMapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     // Listar todos os meus usuários
@@ -22,8 +24,10 @@ public class UserService {
         return user.orElse(null); // Ou retorna o user ou retorna null
     }
 
-    public UserModel cadastroUsuario(UserModel user) {
-        return userRepository.save(user);
+    public UserDTO cadastroUsuario(UserDTO userDTO) {
+        UserModel user = userMapper.map(userDTO);
+        user = userRepository.save(user);
+        return userMapper.map(user);
     }
 
     public void deletarUsuarioPorId(Long id) {
@@ -41,5 +45,4 @@ public class UserService {
         }
         return userModel.get();
     }
-
 }

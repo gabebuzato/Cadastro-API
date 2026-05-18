@@ -21,7 +21,7 @@ public class UserController {
 
     // Adicionar Usuário (CREATE)
     @PostMapping("/criar")
-    public UserModel criarUsuario(@RequestBody  UserModel user)  { // annotation para quando o usuário precisa enviar algo no corpo da minha requisição
+    public UserDTO criarUsuario(@RequestBody  UserDTO user)  { // annotation para quando o usuário precisa enviar algo no corpo da minha requisição
         return userService.cadastroUsuario(user);
     }
 
