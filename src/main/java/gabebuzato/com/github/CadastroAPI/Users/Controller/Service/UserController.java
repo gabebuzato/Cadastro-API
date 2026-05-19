@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/usuarios")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
    public UserController(UserService userService) {
         this.userService = userService;
@@ -51,7 +51,7 @@ public class UserController {
     }
 
     // Alterar dados do Usuário (UPDATE)
-    @PutMapping ("/alterar/{id}")
+    @PatchMapping ("/alterar/{id}")
     public ResponseEntity<String> alterarUsuarioPorID(@PathVariable Long id, @RequestBody  UserDTO user) {
         if(userService.listarUsuarioPorId(id) != null){
             userService.atualizarUsuarioPorId(id, user);
