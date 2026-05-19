@@ -12,6 +12,7 @@ import lombok.*;
 @AllArgsConstructor // Cria os construtores all args
 @Data //Cria automaticamente os getters e setters
 @Entity
+@ToString(exclude = "tasks")
 public class UserModel {
 
     @Id

@@ -6,14 +6,16 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
 @Entity
 @Table(name = "tb_missoes")
-@Data              // ✅ adicione
-@NoArgsConstructor // ✅ adicione
-@AllArgsConstructor // ✅ adicione
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class TasksModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
