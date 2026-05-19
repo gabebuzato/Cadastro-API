@@ -1,5 +1,7 @@
 package gabebuzato.com.github.CadastroAPI.Users.Controller.Service;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,33 +23,54 @@ public class UserController {
 
     // Adicionar Usuário (CREATE)
     @PostMapping("/criar")
-    public UserDTO criarUsuario(@RequestBody  UserDTO user)  { // annotation para quando o usuário precisa enviar algo no corpo da minha requisição
-        return userService.cadastroUsuario(user);
+    public ResponseEntity<String> criarUsuario(@RequestBody  UserDTO user)  { // annotation para quando o usuário precisa enviar algo no corpo da minha requisição
+        UserDTO userDTO = userService.cadastroUsuario(user);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Usuário criado com sucesso! " + userDTO.getNome() + " (ID): " + userDTO.getId());
     }
 
 
     // Procurar Usuario por ID (READ)
     @GetMapping("/listar/{id}")
-    public UserDTO listarPorID (@PathVariable Long id) { // O path varible é uma variavel quem vem pela requisição http, colocamos ela quando precisamos desse parametro na nossa função para retornar algo
-        return userService.listarUsuarioPorId(id);
+    public ResponseEntity<?> listarPorID (@PathVariable Long id) { // O path varible é uma variavel quem vem pela requisição http, colocamos ela quando precisamos desse parametro na nossa função para retornar algo
+
+       if (userService.listarUsuarioPorId(id) != null) {
+           UserDTO user = userService.listarUsuarioPorId(id);
+           return ResponseEntity.ok(user);
+       } else  {
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário com o id: " + id + " não encontrado!");
+       }
+
     }
 
     // Mostrar os Usuários (READ)
     @GetMapping("/listar")
-    public List<UserDTO> listarUsuarios() {
-        return userService.listarUsuarios();
+    public ResponseEntity<List<UserDTO>> listarUsuarios() {
+         List<UserDTO> users = userService.listarUsuarios();
+         return ResponseEntity.ok(users);
     }
 
     // Alterar dados do Usuário (UPDATE)
     @PutMapping ("/alterar/{id}")
-    public UserDTO alterarUsuarioPorID(@PathVariable Long id, @RequestBody  UserDTO user) {
-       return userService.atualizarUsuarioPorId(id, user);
+    public ResponseEntity<String> alterarUsuarioPorID(@PathVariable Long id, @RequestBody  UserDTO user) {
+        if(userService.listarUsuarioPorId(id) != null){
+            userService.atualizarUsuarioPorId(id, user);
+            return ResponseEntity.ok("Dados do usuário com o ID: " + id + " alterados com sucesso!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Usuário de ID: " + id + " não encontrado!");
+        }
     }
 
     // Deletar Usuário (DELETE)
     @DeleteMapping("/deletar/{id}")
-    public void deletarUsuarioPorID(@PathVariable Long id) {
-       userService.deletarUsuarioPorId(id);
+    public ResponseEntity<String> deletarUsuarioPorID(@PathVariable Long id) {
+       if(userService.listarUsuarioPorId(id) != null){
+           userService.deletarUsuarioPorId(id);
+           return ResponseEntity.ok("Usuário com o ID: " + id + " deletado com sucesso!");
+       } else  {
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário de ID: " + id + " não encontrado!");
+       }
     }
 
 }
